@@ -96,6 +96,7 @@ function answer(selection) {
         document.getElementById(selection).parentNode.classList.add("bg-danger");
         document.getElementById(right_answer).parentNode.classList.add("bg-success");
     }
+    makeAnswersunclickable();
     document.getElementById("next_button").disabled = false;
 }
 
@@ -104,11 +105,24 @@ function nextQuestion() {
     showQuestion();
     document.getElementById("next_button").disabled = true;
     resetAnswerButtons();
+    makeAnswersClickable();
 }
 
 function resetAnswerButtons() {
     for (let i = 1; i < 5; i++) {
         document.getElementById('answer_' + i).parentNode.classList.remove("bg-danger");
         document.getElementById('answer_' + i).parentNode.classList.remove("bg-success");
+    }
+}
+
+function makeAnswersunclickable(){
+    for (let i = 1; i < 5; i++) {
+        document.getElementById('answer_' + i).parentNode.classList.add("unclickable");
+    }
+}
+
+function makeAnswersClickable(){
+    for (let i = 1; i < 5; i++) {
+        document.getElementById('answer_' + i).parentNode.classList.remove("unclickable");
     }
 }
