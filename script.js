@@ -59,6 +59,8 @@ let questions = [
 
 let currentQuestion = 0;
 let rightAnswers = 0;
+let audioSuccess = new Audio("audio/success.mp3");
+let audioFail = new Audio("audio/fail.mp3");
 
 function init() {
     document.getElementById("all_questions").innerHTML = questions.length;
@@ -66,21 +68,23 @@ function init() {
 }
 
 function showQuestion() {
-    if (currentQuestion >= questions.length) {
-        document.getElementById("endscreen").style = '';
-        document.getElementById("question_body").style = 'display: none;';
-        document.getElementById("header_img").src = "./img/award.png";
-        document.getElementById("right_answers").innerHTML = rightAnswers;
-        document.getElementById("number_questions").innerHTML = questions.length;
+    if (gameIsOver()) {
+        showEndscreen();
     } else {
+        let percent = currentQuestion/questions.length*100;
         let question = questions[currentQuestion];
+        document.getElementById("progress_bar").style.width = `${percent}%`
         document.getElementById("question_number").innerHTML = currentQuestion + 1;
         document.getElementById("question_text").innerHTML = question.question;
-        document.getElementById("answer_1").innerHTML = question.answer_1;
-        document.getElementById("answer_2").innerHTML = question.answer_2;
-        document.getElementById("answer_3").innerHTML = question.answer_3;
-        document.getElementById("answer_4").innerHTML = question.answer_4;
+        document.getElementById("answer_1").innerHTML = `<p class="answer-tag">A</p> ${question.answer_1}`;
+        document.getElementById("answer_2").innerHTML = `<p class="answer-tag">B</p> ${question.answer_2}`;
+        document.getElementById("answer_3").innerHTML = `<p class="answer-tag">C</p> ${question.answer_3}`;
+        document.getElementById("answer_4").innerHTML = `<p class="answer-tag">D</p> ${question.answer_4}`;
     }
+}
+
+function gameIsOver(){
+    return currentQuestion >= questions.length;
 }
 
 function answer(selection) {
@@ -90,11 +94,13 @@ function answer(selection) {
     let right_answer = "answer_" + rightAnswerNum;
 
     if (selectedQuestionNum == rightAnswerNum) {
-        document.getElementById(selection).parentNode.classList.add("bg-success");
+        document.getElementById(selection).classList.add("bg-success");
         rightAnswers++;
+        audioSuccess.play();
     } else {
-        document.getElementById(selection).parentNode.classList.add("bg-danger");
-        document.getElementById(right_answer).parentNode.classList.add("bg-success");
+        document.getElementById(selection).classList.add("bg-danger");
+        document.getElementById(right_answer).classList.add("bg-success");
+        audioFail.play();
     }
     makeAnswersunclickable();
     document.getElementById("next_button").disabled = false;
@@ -110,8 +116,8 @@ function nextQuestion() {
 
 function resetAnswerButtons() {
     for (let i = 1; i < 5; i++) {
-        document.getElementById('answer_' + i).parentNode.classList.remove("bg-danger");
-        document.getElementById('answer_' + i).parentNode.classList.remove("bg-success");
+        document.getElementById('answer_' + i).classList.remove("bg-danger");
+        document.getElementById('answer_' + i).classList.remove("bg-success");
     }
 }
 
@@ -125,4 +131,20 @@ function makeAnswersClickable(){
     for (let i = 1; i < 5; i++) {
         document.getElementById('answer_' + i).parentNode.classList.remove("unclickable");
     }
+}
+
+function restartGame(){
+    currentQuestion = 0;
+    rightAnswers = 0;
+    document.getElementById("endscreen").style = 'display: none;'; //Endscreen ausblenden
+    document.getElementById("question_body").style = ''; //Frage wieder einblenden
+    init();
+}
+
+function showEndscreen(){
+    document.getElementById("endscreen").style = '';
+    document.getElementById("question_body").style = 'display: none;';
+    document.getElementById("progress_bar").style.width = `100%`
+    document.getElementById("right_answers").innerHTML = rightAnswers;
+    document.getElementById("number_questions").innerHTML = questions.length;
 }
