@@ -36,25 +36,35 @@
       </ul>
     </div>
     <div class="card quiz-card">
-      <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0"
-        aria-valuemax="100">
+      <div class="progress" id="progress_bar_div" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0"
+        aria-valuemax="100" style="display: none;">
         <div class="progress-bar" id="progress_bar"></div>
+      </div>
+
+      <div class="startscreen" id="startscreen">
+        <h2>Welcome to the Quiz</h2>
+        <span>Ready for the Challenge?</span>
+        <button class="btn btn-primary" onclick="startGame()">Start</button>
       </div>
 
       <div class="card-body" id="endscreen" style="display: none;">
         <div class="text-center endscreen-headline">
-          Quiz beendet!
+          <img id="endscreen_img" src="./Quizapp/brain result.png" alt="">
+        </div>
+
+        <div class="text-center endscreen-headline">
+          Quiz completed!
         </div>
 
         <div class="text-center">
-          Du hast <b id="right_answers">1</b> von <b id="number_questions">7</b> Fragen richtig beantwortet.
+          <span id="score">YOUR SCORE</span> <b id="right_answers">1</b>/<b id="number_questions">7</b>
         </div>
         <div class="button-div">
-          <button class="btn btn-primary" onclick="restartGame()">Neustart</button>
+          <button class="btn btn-primary" onclick="restartGame()">Replay</button>
         </div>
       </div>
 
-      <div class="card-body" id="question_body">
+      <div class="card-body" id="question_body" style="display: none;">
         <h5 class="card-title" id="question_text">Frage</h5>
 
         <div class="card mb-2">

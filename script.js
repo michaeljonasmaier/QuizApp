@@ -62,8 +62,11 @@ let rightAnswers = 0;
 let audioSuccess = new Audio("audio/success.mp3");
 let audioFail = new Audio("audio/fail.mp3");
 
-function init() {
+function startGame(){
     document.getElementById("all_questions").innerHTML = questions.length;
+    document.getElementById("startscreen").style = 'display: none;'; 
+    document.getElementById("question_body").style = ''; 
+    document.getElementById("progress_bar_div").style = ''; 
     showQuestion();
 }
 
@@ -138,7 +141,7 @@ function restartGame(){
     rightAnswers = 0;
     document.getElementById("endscreen").style = 'display: none;'; //Endscreen ausblenden
     document.getElementById("question_body").style = ''; //Frage wieder einblenden
-    init();
+    startGame();
 }
 
 function showEndscreen(){

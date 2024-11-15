@@ -1,5 +1,8 @@
 body {
     background-color: #FEFAEF !important;
+    background-image: url("./Quizapp/tropy.png");
+    background-position: 100% 50%;
+    background-repeat: no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,6 +17,13 @@ p{
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+.startscreen{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
 }
 
 .quiz-card{
@@ -51,6 +61,7 @@ p{
 
 .text-center{
     text-align: center;
+    font-weight: bold;
 }
 
 .endscreen-headline{
@@ -138,4 +149,19 @@ p{
     display: flex;
     justify-content: center;
     margin-top: 40px;
+}
+
+.background-img{
+    background-image: url(./Quizapp/brainbg.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+#endscreen_img{
+    width: 80px;
+    padding-top: 50px;
+}
+
+#score{
+    color: #F08531;
 }
